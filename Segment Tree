@@ -1,0 +1,48 @@
+class segtree{
+    vector<ll>seg;
+    public:
+    segtree(ll n){
+        seg.resize(4*n+1);
+    }
+  void build(ll ind,ll start,ll end,vector<ll>& v)
+  {
+      if(start==end)
+      {
+          seg[ind]=v[start];
+          return;
+      }
+      ll mid=(start+end)/2;
+      build(2*ind+1,start,mid,v);
+      build(2*ind+2,mid+1,end,v);
+      seg[ind]=min(seg[2*ind+1],seg[2*ind+2]);
+  }
+
+  ll query(ll ind,ll start,ll end,ll l,ll r)
+  {
+      if(end<l||r<start) return INT_MAX;
+      else if(start>=l&&end<=r) return seg[ind];
+      else
+      {
+          ll mid=(start+end)/2;
+          ll left=query(2*ind+1,start,mid,l,r);
+          ll right=query(2*ind+2,mid+1,end,l,r);
+          return min(left,right);
+      }
+  }
+
+  void update(ll ind,ll start,ll end,ll i,ll val)
+  {
+      if(start==end)
+      {
+          seg[ind]=val;
+          return;
+      }
+      ll mid=(start+end)/2;
+      if(i<=mid)
+      update(2*ind+1,start,mid,i,val);
+      else
+      update(2*ind+2,mid+1,end,i,val);
+      seg[ind]=min(seg[2*ind+1],seg[2*ind+2]);
+  }
+
+};
