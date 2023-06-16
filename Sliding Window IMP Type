@@ -1,0 +1,28 @@
+Count number of substrings 
+	 count all possible substrings (not necessarily distinct) that have exactly k distinct characters. 
+	 
+Logic - Count Substring At Most K   -  Count Substring At Most K-1; 
+
+	long long atMostK(string s, int k){
+        int i = 0, j = 0, n = s.size();
+        long long ans = 0;
+        int unq = 0;
+        vector<int> map(26, 0);
+        while(j < n){
+            map[s[j]-'a']++;
+            if(map[s[j] - 'a'] == 1){
+                unq++;
+            }
+            
+            while(unq > k){
+                map[s[i]-'a']--;
+                if(map[s[i] - 'a'] == 0){
+                    unq--;
+                }
+                ++i;
+            }
+            ans += j-i+1;
+            ++j;
+        }
+        return ans;
+    }
