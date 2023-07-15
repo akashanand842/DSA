@@ -1,0 +1,50 @@
+// C++
+#include <iostream>
+
+template<typename T>
+class MyContainer {
+private:
+    T data;
+
+public:
+    MyContainer(T value) : data(value) {}
+
+    T getData() const {
+        return data;
+    }
+};
+
+int main() {
+    MyContainer<int> intContainer(10);
+    std::cout << "Data in intContainer: " << intContainer.getData() << std::endl;
+
+    MyContainer<std::string> strContainer("Hello");
+    std::cout << "Data in strContainer: " << strContainer.getData() << std::endl;
+
+    return 0;
+}
+
+
+
+// Java
+public class MyContainer<T> {
+    private T data;
+
+    public MyContainer(T value) {
+        this.data = value;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public static void main(String[] args) {
+        MyContainer<Integer> intContainer = new MyContainer<>(10);
+        System.out.println("Data in intContainer: " + intContainer.getData());
+
+        MyContainer<String> strContainer = new MyContainer<>("Hello");
+        System.out.println("Data in strContainer: " + strContainer.getData());
+    }
+}
+
+
