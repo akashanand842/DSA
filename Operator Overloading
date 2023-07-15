@@ -1,0 +1,52 @@
+#include <iostream>
+#include <set>
+
+class MySet {
+private:
+    std::set<int> data;
+
+public:
+    MySet() {}
+
+    void insert(int value) {
+        data.insert(value);
+    }
+
+    void remove(int value) {
+        data.erase(value);
+    }
+
+    MySet operator-(const MySet& other) const {
+        MySet result;
+        for (const auto& element : data) {
+            if (other.data.count(element) > 0) {
+                result.insert(element);
+            }
+        }
+        return result;
+    }
+
+    void display() const {
+        for (const auto& element : data) {
+            std::cout << element << " ";
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    MySet s1;
+    s1.insert(1);
+    s1.insert(2);
+    s1.insert(3);
+
+    MySet s2;
+    s2.insert(2);
+    s2.insert(3);
+    s2.insert(4);
+
+    MySet result = s1 - s2;
+    result.display(); // Outputs: 2 3
+
+    return 0;
+}
