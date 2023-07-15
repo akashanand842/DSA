@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
+using namespace std;
+int main() {
+    string s = "My,name,is,akas";
+    stringstream ss(s);
+    vector<string> tokens;
+    string token;
+
+    while (getline(ss, token, ',')) {
+        tokens.push_back(token);
+    }
+
+    // Print the tokens
+    for (const string& t : tokens) {
+        cout << t << std::endl;
+    }
+
+    return 0;
+}
+
