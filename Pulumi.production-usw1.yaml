@@ -1,0 +1,158 @@
+---
+config:
+  gcp:region: us-west1
+  instances:
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230711
+        size: 100
+      counter: 1
+      disks:
+        - counter: 1
+          size: 200
+          type: pd-ssd
+        - counter: 2
+          size: 100
+          type: pd-ssd
+        - counter: 3
+          size: 4
+          type: pd-ssd
+      labels:
+        ansible_group: demand_search
+        env: production
+      machine_type: n2-standard-4
+      name: demand-search-database
+      zone: c
+      ip_cidr_range: 10.48.41.214/32
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230711
+        size: 100
+      counter: 2
+      disks:
+        - counter: 1
+          size: 200
+          type: pd-ssd
+        - counter: 2
+          size: 100
+          type: pd-ssd
+        - counter: 3
+          size: 4
+          type: pd-ssd
+      labels:
+        ansible_group: demand_search
+        env: production
+      machine_type: n2-standard-4
+      name: demand-search-database
+      zone: b
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 50
+      counter: 1
+      disks:
+        - counter: 1
+          name: vm-usw1-facebook-database-production-disk-1
+          size: 200
+          type: pd-balanced
+      labels:
+        ansible_group: facebook_database
+        env: production
+      machine_type: n2-standard-4
+      metadata:
+        enable-oslogin: 'true'
+      name: facebook-database
+      tags:
+        - http-server
+        - https-server
+      zone: a
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 50
+      counter: 2
+      disks:
+        - counter: 1
+          size: 200
+          type: pd-ssd
+      labels:
+        ansible_group: facebook_database
+        env: production
+      machine_type: n2-standard-4
+      name: facebook-database
+      zone: b
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 50
+      counter: 1
+      labels:
+        ansible_group: demand_proxy
+        env: production
+      machine_type: e2-small
+      name: search-proxy
+      access_configs:
+        nat_ip: 34.145.38.143
+        network_tier: PREMIUM
+      zone: b
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 40
+      counter: 1
+      labels:
+        ansible_group: irs_varnish
+        env: production
+      machine_type: e2-medium
+      name: irs-varnish-cache
+      zone: c
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 40
+      counter: 2
+      labels:
+        ansible_group: irs_varnish
+        env: production
+      machine_type: e2-small
+      name: irs-varnish-cache
+      zone: b
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 40
+      counter: 1
+      labels:
+        ansible_group: irs_redis
+        env: production
+      machine_type: n2-standard-4
+      name: irs-redis
+      zone: a
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 40
+      counter: 2
+      labels:
+        ansible_group: irs_redis
+        env: production
+      machine_type: n2-standard-4
+      name: irs-redis
+      zone: b
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 40
+      counter: 3
+      labels:
+        ansible_group: irs_redis
+        env: production
+      machine_type: n2-standard-4
+      name: irs-redis
+      zone: c
+    - boot:
+        image: https://www.googleapis.com/compute/beta/projects/debian-cloud/global/images/debian-11-bullseye-v20230814
+        size: 40
+      counter: 1
+      labels:
+        ansible_group: common_redis
+        env: production
+      machine_type: n2-standard-2
+      name: common-redis
+      zone: c
+      disks:
+        - counter: 1
+          size: 10
+          description: "disk for redis"
+          type: pd-balanced
+encryptionsalt: v1:7jsMt/K66Ac=:v1:cFXBBQIpXxu0YCQn:3q14bMX/3DKNIm3rl8lz1ENJng11Ug==
